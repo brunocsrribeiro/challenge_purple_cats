@@ -10,7 +10,17 @@ module.exports = {
       },
       balance: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10,2)
+      },
+      customer_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Customers',
+          key: 'id',
+        },
       },
     });
   },

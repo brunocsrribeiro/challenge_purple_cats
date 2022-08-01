@@ -5,9 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.INTEGER,
   }, {
     timestamps: false,
-    underscored: true,
     tableName: 'Customers',
   });
 
+  Customer.associate = (models) => {
+    Customer.hasOne(models.Balance, {
+      foreignKey: 'customerId',
+      as: 'balances',
+    });
+  };
+
   return Customer;
-}
+};
