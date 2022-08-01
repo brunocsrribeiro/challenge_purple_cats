@@ -4,7 +4,8 @@ const controller_customer = require('../controllers');
 const customerRoutes = Router();
 
 customerRoutes
-  .get('/', controller_customer.read);
+  .post('/', controller_customer.createNewCustomer)
+  .get('/', controller_customer.readCustomer);
 
 module.exports = {
   customerRoutes,
