@@ -19,6 +19,21 @@ const idIsValid = async (req, res, next) => {
   next();
 };
 
+const isCustomerIdValid = async (req, res, next) => {
+  const { id } = req.params;
+
+  const isCustomerIdValid = await Balance.findOne({
+    where: { customerId: id },
+  });
+  
+  if (!isCustomerIdValid) {
+    return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Request denied' });
+  };
+
+  next();
+};
+
 module.exports = {
-  idIsValid
+  idIsValid,
+  isCustomerIdValid,
 }

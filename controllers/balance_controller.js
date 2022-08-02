@@ -5,10 +5,11 @@ const updateBalance = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { balance } = req.body;
+    const { query } = req.query;
 
-    await balance_services.updateBalance(id, balance)
+    await balance_services.updateBalance(id, balance, query);
 
-    return res.status(StatusCodes.ACCEPTED).send({ message: `Total balance: ${ balance }` })
+    return res.status(StatusCodes.ACCEPTED).send();
   } catch (error) {
     next(error);
   }
