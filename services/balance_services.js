@@ -26,7 +26,7 @@ const updateBalance = async (id, balance, query) => {
         { where: { customerId: id } },
       );
       break;
-  }
+  };
 };
 
 module.exports = { updateBalance };

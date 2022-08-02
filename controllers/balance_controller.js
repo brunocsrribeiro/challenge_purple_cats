@@ -9,12 +9,10 @@ const updateBalance = async (req, res, next) => {
 
     await balance_services.updateBalance(id, balance, query);
 
-    return res.status(StatusCodes.ACCEPTED).send();
+    return res.status(StatusCodes.ACCEPTED).send({ message: 'Successfully completed'});
   } catch (error) {
     next(error);
-  }
-}
-
-module.exports = {
-  updateBalance,
+  };
 };
+
+module.exports = { updateBalance };

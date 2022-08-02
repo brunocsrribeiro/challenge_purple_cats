@@ -16,8 +16,8 @@ const createNewCustomer = async (req, res, next) => {
     return res.status(StatusCodes.CREATED).json(newCustomer);
   } catch (error) {
     next(error);
-  }
-}
+  };
+};
 
 const readCustomer = async (_req, res, next) => {
   try {
@@ -26,7 +26,7 @@ const readCustomer = async (_req, res, next) => {
     return res.status(StatusCodes.OK).json(allCostumers);
   } catch (error) {
     next(error);
-  }
+  };
 };
 
 const readOneCustomer = async (req, res, next) => {
@@ -38,7 +38,7 @@ const readOneCustomer = async (req, res, next) => {
     return res.status(StatusCodes.OK).json(oneCustomer);
   } catch (error) {
     next(error);
-  }
+  };
 };
 
 const updateCustomer = async (req, res, next) => {
@@ -51,7 +51,7 @@ const updateCustomer = async (req, res, next) => {
     return res.status(StatusCodes.OK).send({ message: 'Successfully updated!' });
   } catch (error) {
     next(error);
-  }
+  };
 };
 
 const deleteCustomer = async (req, res, next) => {
@@ -63,7 +63,7 @@ const deleteCustomer = async (req, res, next) => {
     return res.status(StatusCodes.NO_CONTENT).end();
   } catch (error) {
     next(error);
-  }
+  };
 };
 
 module.exports = {

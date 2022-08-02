@@ -25,7 +25,7 @@ const createNewCustomer = async (dataNewCustomer) => {
   );
 
   return { tokenNewCustomer };
-}
+};
 
 const readCustomer = async () => {
   const allCustomers = await Customer.findAll({

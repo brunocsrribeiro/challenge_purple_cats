@@ -33,7 +33,35 @@ const isCustomerIdValid = async (req, res, next) => {
   next();
 };
 
+const isPositiveBalance = async (req, res, next) => {
+  const { id } = req.params;
+  const { query } = req.query;
+  const { balance } = req.body;
+
+  const currentBalance = [];
+
+  if (isCustomerIdValid) {
+    const findCurrentBalance = await Balance.findOne({
+      where: { customerId: id }
+    });
+
+    currentBalance.push(Number(findCurrentBalance.dataValues.balance));
+  };
+
+  if (query !== 'withdraw' && query !== 'deposit') {
+    return res.status(StatusCodes.BAD_REQUEST).send({ message: 'Unable to complete your request!'});
+  };
+
+  if (balance > currentBalance[0] && query === 'withdraw') {
+    return res.status(StatusCodes.FORBIDDEN).send({ message: 'Sorry! Insufficient funds.'})
+  }
+
+  next();
+};
+
+
 module.exports = {
   idIsValid,
   isCustomerIdValid,
-}
+  isPositiveBalance,
+};

@@ -21,7 +21,7 @@ const validTokenToAccess = async (req, res, next) => {
 
     if (!token) {
       return res.status(StatusCodes.UNAUTHORIZED).send({ message: 'Token not found' });
-    }
+    };
 
     const decoded = decode(token);
 
@@ -34,7 +34,7 @@ const validTokenToAccess = async (req, res, next) => {
     return res.status(StatusCodes.UNAUTHORIZED).send({
       message: 'Expired or invalid token',
     });
-  }
-}
+  };
+};
 
 module.exports = { decode, validTokenToAccess };
