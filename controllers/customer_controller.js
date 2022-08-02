@@ -3,12 +3,14 @@ const { StatusCodes } = require('http-status-codes');
 
 const createNewCustomer = async (req, res, next) => {
   try {
-    const { account, holder, password } = req.body;
+    const { account, holder, password, balance, customerId } = req.body;
 
     const newCustomer = await customer_services.createNewCustomer({
       account,
       holder,
       password,
+      balance,
+      customerId,
     });
 
     return res.status(StatusCodes.CREATED).json(newCustomer);
@@ -27,22 +29,47 @@ const readCustomer = async (_req, res, next) => {
   }
 };
 
-// const readOneCustomer = async (req, res, next) => {};
+const readOneCustomer = async (req, res, next) => {
+  try {
+    const { id } =req.params;
 
-// const updateCustomer = async (req, res, next) => {
-//   try {
-//     //
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    const oneCustomer = await customer_services.readOneCustomer(id);
 
-// const deleteCustomer = async (req, res, next) => {};
+    return res.status(StatusCodes.OK).json(oneCustomer);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateCustomer = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { holder, password } = req.body;
+
+    await customer_services.updateCustomer(id, { holder, password });
+
+    return res.status(StatusCodes.OK).send({ message: 'Successfully updated!' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteCustomer = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await customer_services.deleteCustomer(id);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   createNewCustomer,
   readCustomer,
-  // readOneCustomer,
-  // updateCustomer,
-  // deleteCustomer,
+  readOneCustomer,
+  updateCustomer,
+  deleteCustomer,
 };

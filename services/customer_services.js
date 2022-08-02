@@ -2,20 +2,24 @@ const JWT = require('jsonwebtoken');
 const { Customer, Balance } = require('../models');
 require('dotenv/config');
 
-const jwtConfig = {
-  algorithm: 'HS256',
-  expiresIn: '24h',
-};
-
-const secret = process.env.SECRET;
-
 const createNewCustomer = async (dataNewCustomer) => {
-  const newCustomer = await Customer.create(dataNewCustomer);
+  const secret = process.env.SECRET;
+  const jwtConfig = {
+    algorithm: 'HS256',
+    expiresIn: '24h',
+  };
+  
+  const { account, holder, password, balance } = dataNewCustomer;
 
-  const { password, ...newCustomerWithoutPass } = newCustomer;
+  const { id } = await Customer.create(
+    { account, holder, password }, 
+    { attributes: { exclude: ['password'] } },
+  );   
 
+  await Balance.create({ balance, customerId: id });
+  
   const tokenNewCustomer = JWT.sign(
-    { data: newCustomerWithoutPass },
+    { data: { id, account, holder } },
     secret,
     jwtConfig,
   );
@@ -25,13 +29,10 @@ const createNewCustomer = async (dataNewCustomer) => {
 
 const readCustomer = async () => {
   const allCustomers = await Customer.findAll({
-    include: {
-      model: Balance,
-      as: 'balances',
-      attributes: {
-        exclude: ['id', 'customerId'],
-      },
+    include: { model: Balance, as: 'balances', attributes: {
+      exclude: ['id', 'customerId'],
     },
+  },
     attributes: {
       exclude: ['password'],
     },
@@ -40,16 +41,37 @@ const readCustomer = async () => {
   return allCustomers;
 };
 
-// const readOneCustomer = async () => {};
+const readOneCustomer = async (id) => {
+  const oneCustomer = await Customer.findByPk(id, {
+    include: { model: Balance, as: 'balances', attributes: {
+      exclude: ['id', 'customerId'],
+    },
+  },
+    attributes: {
+      exclude: ['password'],
+    },
+  });
 
-// const updateCustomer = async () => {};
+  return oneCustomer;
+};
 
-// const deleteCustomer = async () => {};
+const updateCustomer = async (id, dataCustomer) => {
+  const { holder, password } = dataCustomer;
+
+  const updateCustomer = await Customer.update(
+    { holder, password },
+    { where: { id: id } },
+  );
+
+  return updateCustomer;
+};
+
+const deleteCustomer = async (id) =>  Customer.destroy({ where: { id: id } });
 
 module.exports = {
   createNewCustomer,
   readCustomer,
-  // readOneCustomer,
-  // updateCustomer,
-  // deleteCustomer,
+  readOneCustomer,
+  updateCustomer,
+  deleteCustomer,
 };

@@ -1,32 +1,13 @@
 const { Customer, Balance } = require('../models');
 require('dotenv/config');
 
-const createNewBalance = async (dataNewCustomer) => {
-  const newBalance = await Balance.create(dataNewCustomer);
+const updateBalance = async (id, balance) => {
+  const updateBalance = await Balance.update(
+    { balance },
+    { where: { id: id } },
+  );
 
-  return newBalance;
-}
-
-const readBalance = async () => {
-  const allBalances = await Balance.findAll({
-    attributes: {
-      exclude: ['id', 'customerId'],
-    },
-  });
-
-  return allBalances;
+  return updateBalance;
 };
 
-// const readOneBalance = async () => {};
-
-// const updateBalance = async () => {};
-
-// const deleteBalance = async () => {};
-
-module.exports = {
-  createNewBalance,
-  readBalance,
-  // readOneBalance,
-  // updateBalance,
-  // deleteBalance,
-};
+module.exports = { updateBalance };

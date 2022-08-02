@@ -12,5 +12,5 @@ app.use('/balance', balanceRoutes);
 
 app.listen(
   PORT, 
-  () => console.log(`Running on port ${ PORT }`),
+  () => console.log(`Running on port ${ PORT }!`),
 );

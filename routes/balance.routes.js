@@ -1,11 +1,11 @@
 const { Router } = require('express');
 const controller_balance = require('../controllers');
+const { idIsValid } = require('../controllers/middlewares/validations');
 
 const balanceRoutes = Router();
 
 balanceRoutes
-  .post('/', controller_balance.createNewBalance)
-  .get('/', controller_balance.readBalance);
+  .put('/:id', idIsValid, controller_balance.updateBalance);
 
 module.exports = {
   balanceRoutes,
