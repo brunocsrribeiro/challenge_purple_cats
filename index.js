@@ -1,14 +1,16 @@
 const express = require('express');
-const { customerRoutes } = require('./routes');
+const { customerRoutes, balanceRoutes } = require('./routes');
 require('dotenv/config');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
 app.use('/customer', customerRoutes);
+app.use('/balance', balanceRoutes);
 
 app.listen(
-  process.env.PORT, 
-  () => console.log(`Running on port ${ process.env.PORT }`),
+  PORT, 
+  () => console.log(`Running on port ${ PORT }!`),
 );

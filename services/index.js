@@ -1,5 +1,14 @@
-const { read } = require('./customer_services');
+const {
+  createNewCustomer, readCustomer,
+  readOneCustomer, updateCustomer,
+  deleteCustomer } = require('./customer_services');
+const { updateBalance } = require('./balance_services');
 
 module.exports = {
-  read,
+  createNewCustomer,
+  readCustomer,
+  readOneCustomer,
+  updateCustomer,
+  deleteCustomer,
+  updateBalance,
 };

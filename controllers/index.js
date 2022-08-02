@@ -1,16 +1,14 @@
-const customer_services = require('../services');
-const { StatusCodes } = require('http-status-codes');
-
-const read = async (_req, res, next) => {
-  try {
-    const costumers = await customer_services.read();
-
-    return res.status(StatusCodes.OK).json(costumers);
-  } catch (error) {
-    next(error);
-  }
-};
+const {
+  createNewCustomer, readCustomer,
+  readOneCustomer, updateCustomer,
+  deleteCustomer } = require('./customer_controller');
+const { updateBalance } = require('./balance_controller');
 
 module.exports = {
-  read,
-}
+  createNewCustomer,
+  readCustomer,
+  readOneCustomer,
+  updateCustomer,
+  deleteCustomer,
+  updateBalance,
+};
