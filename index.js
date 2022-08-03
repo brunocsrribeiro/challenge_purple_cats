@@ -7,8 +7,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.use('/customer', customerRoutes);
-app.use('/balance', balanceRoutes);
+app.get('/', (req, res) => {
+  return res.send("Estou funcionando OK!")
+})
+
+// app.use('/customer', customerRoutes);
+// app.use('/balance', balanceRoutes);
 
 app.listen(
   PORT, 
