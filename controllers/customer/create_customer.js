@@ -6,12 +6,7 @@ const createNewCustomer = async (req, res, next) => {
     const { account, holder, password, balance, customerId } = req.body;
 
     const newCustomer = await customer_services.createNewCustomer({
-      account,
-      holder,
-      password,
-      balance,
-      customerId,
-    });
+      account, holder, password, balance, customerId });
 
     return res.status(StatusCodes.CREATED).json(newCustomer);
   } catch (error) {
