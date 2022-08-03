@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const JWT = require('jsonwebtoken');
+const { verify } = require('jsonwebtoken');
 const { Customer } = require('../../../models');
 require('dotenv/config');
 
@@ -7,7 +7,7 @@ const secret = process.env.SECRET;
 
 const decode = (token) => {
   try {
-    const decoded = JWT.verify(token, secret);
+    const decoded = verify(token, secret);
 
     return decoded;
   } catch (error) {

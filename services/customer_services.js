@@ -1,13 +1,10 @@
-const JWT = require('jsonwebtoken');
+const { sign } = require('jsonwebtoken');
 const { Customer, Balance } = require('../models');
 require('dotenv/config');
 
 const createNewCustomer = async (dataNewCustomer) => {
   const secret = process.env.SECRET;
-  const jwtConfig = {
-    algorithm: 'HS256',
-    expiresIn: '24h',
-  };
+  const jwtConfig = { algorithm: 'HS256' };
   
   const { account, holder, password, balance } = dataNewCustomer;
 
@@ -18,7 +15,7 @@ const createNewCustomer = async (dataNewCustomer) => {
 
   await Balance.create({ balance, customerId: id });
   
-  const tokenNewCustomer = JWT.sign(
+  const tokenNewCustomer = sign(
     { data: { id, account, holder } },
     secret,
     jwtConfig,
