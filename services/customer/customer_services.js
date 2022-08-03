@@ -1,11 +1,7 @@
-const { sign } = require('jsonwebtoken');
-const { Customer, Balance } = require('../models');
+const { Customer, Balance } = require('../../models');
 require('dotenv/config');
 
-const createNewCustomer = async (dataNewCustomer) => {
-  const secret = process.env.SECRET;
-  const jwtConfig = { algorithm: 'HS256' };
-  
+const createNewCustomer = async (dataNewCustomer) => {  
   const { account, holder, password, balance } = dataNewCustomer;
 
   const { id } = await Customer.create(
@@ -14,14 +10,8 @@ const createNewCustomer = async (dataNewCustomer) => {
   );   
 
   await Balance.create({ balance, customerId: id });
-  
-  const tokenNewCustomer = sign(
-    { data: { id, account, holder } },
-    secret,
-    jwtConfig,
-  );
 
-  return { tokenNewCustomer };
+  return { account, holder, password, balance };
 };
 
 const readCustomer = async () => {

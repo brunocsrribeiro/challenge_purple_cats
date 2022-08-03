@@ -1,5 +1,5 @@
-const { isCustomerIdValid } = require('../controllers/middlewares/validations');
-const { Balance } = require('../models');
+const { isCustomerIdValid } = require('../../controllers/middlewares/validations');
+const { Balance } = require('../../models');
 require('dotenv/config');
 
 const updateBalance = async (id, balance, query) => {

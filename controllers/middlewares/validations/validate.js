@@ -59,7 +59,6 @@ const isPositiveBalance = async (req, res, next) => {
   next();
 };
 
-
 module.exports = {
   idIsValid,
   isCustomerIdValid,

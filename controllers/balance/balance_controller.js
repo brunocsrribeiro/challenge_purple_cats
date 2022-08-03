@@ -1,4 +1,4 @@
-const balance_services = require('../services');
+const balance_services = require('../../services');
 const { StatusCodes } = require('http-status-codes');
 
 const updateBalance = async (req, res, next) => {

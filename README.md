@@ -37,8 +37,6 @@ O Objetivo deste desafio é a construção de uma aplicação, utilizando a arqu
 > - MySQL
 > - Express.js
 > - Sequelize
-> - Autentificação JWT
-> - Criptografia Bcrypt
 > - Http-Status-Codes
 
 ## Autor

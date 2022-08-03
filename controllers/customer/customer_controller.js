@@ -1,4 +1,4 @@
-const customer_services = require('../services');
+const customer_services = require('../../services');
 const { StatusCodes } = require('http-status-codes');
 
 const createNewCustomer = async (req, res, next) => {
