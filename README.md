@@ -17,7 +17,7 @@ O Objetivo deste desafio é a construção de uma aplicação, utilizando a arqu
 > Para rodar a aplicação
 > - nodemon é utilizado como dependendência de desenvolvimento para esse comando:
 ```
- npm start
+ npm run dev
 ```
 ### Observações
  - Existe um arquivo **.env.example** com as variáveis de ambiente necessárias para a configuração de acesso ao Banco de Dados.
